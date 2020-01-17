@@ -1,18 +1,18 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 import { createStackNavigator } from 'react-navigation-stack';
-import ScreenHome from './Screen/ScreenHome';
-import ScreenAbout from './Screen/ScreenAbout';
-import ScreenLogin from './Screen/ScreenLogin';
+import ScreenHome from './Screen/Home';
+import ScreenAbout from './Screen/About';
+import ScreenLogin from './Screen/Login';
 
 const AppNavigator = createStackNavigator(
   {
-  Home: {screen: ScreenHome},
-  About: {screen: ScreenAbout},
-  Login: ScreenLogin
+    Home: {screen: ScreenHome},
+    About: {screen: ScreenAbout},
+    Login: ScreenLogin
   },
   {
-    initialRouteName: 'Login'
+    initialRouteName: 'Home'
   }
 );
 
