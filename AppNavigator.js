@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { createStackNavigator } from 'react-navigation-stack';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 import { Icon } from 'react-native-elements'
@@ -11,6 +10,12 @@ import Categories from './Screen/Categories';
 import Cart from './Screen/Cart';
 import Settings from './Screen/Settings';
 import Orders from './Screen/Orders';
+
+const color = {
+  ACTIVE: '#147EFB',
+  INACTIVE: '#CCC'
+}
+
 const CategoryStack = createStackNavigator(
   {
     Categories,
@@ -21,33 +26,33 @@ const CategoryStack = createStackNavigator(
   }
 );
 CategoryStack.navigationOptions = {
-  tabBarLabel: 'Shopping',
-  tabBarIcon: () => (
-    <Icon name='ios-apps' type='ionicon' size={24} />
+  tabBarLabel: 'Home',
+  tabBarIcon: ({ focused }) => (
+    <Icon name='ios-home' type='ionicon' size={24} color={focused ? color.ACTIVE : color.INACTIVE}/>
   )
 }
 
 const CartStack = createStackNavigator({ Cart });
 CartStack.navigationOptions = {
   tabBarLabel: 'Cart',
-  tabBarIcon: () => (
-    <Icon name='ios-cart' type='ionicon' size={24} />
+  tabBarIcon: ({ focused }) => (
+    <Icon name='ios-cart' type='ionicon' size={24} color={focused ? color.ACTIVE : color.INACTIVE}/>
   )
 }
 
 const SettingStack = createStackNavigator({ Settings });
 SettingStack.navigationOptions = {
   tabBarLabel: 'Settings',
-  tabBarIcon: () => (
-    <Icon name='ios-settings' type='ionicon' size={24} />
+  tabBarIcon: ({ focused }) => (
+    <Icon name='ios-settings' type='ionicon' size={24} color={focused ? color.ACTIVE : color.INACTIVE}/>
   )
 }
 
 const OrderStack = createStackNavigator({ Orders })
 OrderStack.navigationOptions = {
   tabBarLabel: 'Orders',
-  tabBarIcon: () => (
-    <Icon name='ios-albums' type='ionicon' size={24} />
+  tabBarIcon: ({ focused }) => (
+    <Icon name='ios-albums' type='ionicon' size={24} color={focused ? color.ACTIVE : color.INACTIVE}/>
   )
 }
 
