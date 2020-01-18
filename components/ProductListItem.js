@@ -14,7 +14,7 @@ export default function ProductListItem(props) {
                         <Text style={styles.price}>
                             {product.price}
                         </Text>
-                        <TouchableOpacity activeOpacity={0.5}>
+                        <TouchableOpacity activeOpacity={0.5} onPress={() => onAddToCart(product)}>
                             <Text style={styles.cartText}>Mua +</Text>
                         </TouchableOpacity>
                     </View>

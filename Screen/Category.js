@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { View, ActivityIndicator, StyleSheet, FlatList } from 'react-native';
+import { CartContext } from '../contexts/Cart';
 import axios from 'axios';
 import ProductListItem from '../components/ProductListItem';
 class Category extends Component {
@@ -34,17 +35,23 @@ class Category extends Component {
                     <View style={[styles.container_indicator, styles.horizontal]}>
                         <ActivityIndicator size="large" color="#0000ff" />
                     </View> :
-                    <FlatList
-                        data={products}
-                        numColumns={2}
-                        renderItem={({ item }) => 
-                            <View style={styles.wrapper}>
-                                <ProductListItem product={item} />
-                            </View>
+                    <CartContext.Consumer>
+                        {
+                            ({ addToCart }) => (
+                                <FlatList
+                                    data={products}
+                                    numColumns={2}
+                                    renderItem={({ item }) => 
+                                        <View style={styles.wrapper}>
+                                            <ProductListItem product={item} onAddToCart={addToCart} />
+                                        </View>
+                                    }
+                                    keyExtractor={(item) => `${item.id}`}
+                                    contentContainerStyle={styles.container}
+                                />
+                            )
                         }
-                        keyExtractor={(item) => `${item.id}`}
-                        contentContainerStyle={styles.container}
-                    />
+                    </CartContext.Consumer>
             }
             </>
         )
@@ -63,8 +70,7 @@ const styles = StyleSheet.create({
     },
     container: {
         paddingHorizontal: 8,
-        paddingVertical: 16,
-        backgroundColor: '#fffaff'
+        paddingVertical: 16
     },
     wrapper: {
         flex: 1,
