@@ -1,63 +1,74 @@
 import React, { Component } from 'react';
-import { View, FlatList, StyleSheet } from 'react-native';
-import CategoryListItem from '../components/CategoryListItem';
-import Shirt from '../image/t-shirt.png';
-import Pants from '../image/pants.png';
-import Hoodie from '../image/hoodie.png';
-import Skirt from '../image/skirt.png';
-import Dress from '../image/dress.png';
+import { View, ActivityIndicator, StyleSheet, FlatList } from 'react-native';
+import axios from 'axios';
+import ProductListItem from '../components/ProductListItem';
 class Category extends Component {
 
-    state = {
-        categories: [
-            {
-                id: 1,
-                name: 'Shirt',
-                img: Shirt
-            },
-            {
-                id: 2,
-                name: 'Pants',
-                img: Pants
-            },
-            {
-                id: 3,
-                name: 'Hoodie',
-                img: Hoodie
-            },
-            {
-                id: 4,
-                name: 'Skirt',
-                img: Skirt
-            },
-            {
-                id: 5,
-                name: 'Dress',
-                img: Dress
+    static navigationOptions = ({ navigation }) => {
+        return {
+            title: navigation.getParam('categoryProduct').name,
+            headerTitleAlign: {
+                textAlign: 'center'
             }
-        ]
-    } 
+        }
+    };
+
+    state = {
+        products: []
+    }
+
+    componentDidMount() {
+        const { navigation } = this.props;
+        const id = navigation.getParam('categoryProduct').id;
+        axios.get(`/products?category=${id}`)
+            .then(res => this.setState({ products: res.data }))
+            .catch(err => console.log(err))
+    }
 
     render() {
-        const { categories } = this.state
+        const { products } = this.state;
         return (
-            <FlatList 
-                data={categories}
-                renderItem={({ item }) => <CategoryListItem category={item} />}
-                keyExtractor={(item) => `${item.id}`}
-                contentContainerStyle={{paddingHorizontal: 16}}
-            />
+            <>
+                {   
+                    products.length < 1 ? 
+                    <View style={[styles.container_indicator, styles.horizontal]}>
+                        <ActivityIndicator size="large" color="#0000ff" />
+                    </View> :
+                    <FlatList
+                        data={products}
+                        numColumns={2}
+                        renderItem={({ item }) => 
+                            <View style={styles.wrapper}>
+                                <ProductListItem product={item} />
+                            </View>
+                        }
+                        keyExtractor={(item) => `${item.id}`}
+                        contentContainerStyle={styles.container}
+                    />
+            }
+            </>
         )
     }
 }
 
 const styles = StyleSheet.create({
-    container: {
+    container_indicator: {
         flex: 1,
-        backgroundColor: '#FFF',
-        alignItems: 'stretch',
-        justifyContent: 'center',
-        paddingHorizontal: 16
+        justifyContent: 'center'
+    },
+    horizontal: {
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+        padding: 10
+    },
+    container: {
+        paddingHorizontal: 8,
+        paddingVertical: 16,
+        backgroundColor: '#fffaff'
+    },
+    wrapper: {
+        flex: 1,
+        paddingHorizontal: 8
     }
 });
 

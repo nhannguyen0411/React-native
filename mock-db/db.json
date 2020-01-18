@@ -1,0 +1,61 @@
+{
+    "categories": [
+        {
+            "id": 1,
+            "name": "Shirt",
+            "img": "https://image.flaticon.com/icons/svg/1983/1983502.svg"
+        },
+        {
+            "id": 2,
+            "name": "Pants",
+            "img": "https://image.flaticon.com/icons/svg/1682/1682320.svg"
+        },
+        {
+            "id": 3,
+            "name": "Hoodie",
+            "img": "https://image.flaticon.com/icons/svg/1983/1983502.svg"
+        },
+        {
+            "id": 4,
+            "name": "Skirt",
+            "img": "https://image.flaticon.com/icons/svg/1983/1983502.svg"
+        },
+        {
+            "id": 5,
+            "name": "Dress",
+            "img": "https://image.flaticon.com/icons/svg/1983/1983502.svg"
+        }
+    ],
+    "products": [
+        {
+            "id": 1,
+            "images": [
+                {
+                    "url": "https://media.fjallraven.eu/zoom/7323450494414_SS19_o_greenland_recotton_polo_shirt_m_fjaellraeven_21.png"
+                }
+            ],
+            "name": "Polo Shirt M",
+            "price": "350000"
+        },
+        {
+            "id": 2,
+            "images": [
+                {
+                    "url": "https://www.pleinoutlet.cn/on/demandware.static/-/Sites-plein-master-catalog/default/dw5acea04e/images/large/A17C-MTK1428-PJY002N_01_sf.jpg"
+                }
+            ],
+            "name": "Polo Shirt SS",
+            "price": "400000"
+        },
+        {
+            "id": 3,
+            "images": [
+                {
+                    "url": "http://yostyle.vn/wp-content/uploads/2016/12/ao-polo-lacoste.jpg"
+                }
+            ],
+            "name": "Men Polo Shirt",
+            "price": "700000"
+        }
+    ]
+}
