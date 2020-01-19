@@ -1,19 +1,22 @@
 import React, { Component } from 'react';
 import { View, FlatList, ActivityIndicator, StyleSheet } from 'react-native';
+import LogoTitle from '../components/LogoTitle';
 import CategoryListItem from '../components/CategoryListItem';
 import axios from 'axios';
+
 class Categories extends Component {
 
     static navigationOptions = {
+        headerTitle: () => <LogoTitle />,
         headerTitleAlign: {
             textAlign: 'center'
         }
     };
+
     state = {
         categories: []
     }
     
-
     componentDidMount() {
         axios.get("/categories")
             .then( res => 
@@ -40,7 +43,6 @@ class Categories extends Component {
                     />
                 }
             </>
-            
         )
     }
 }
