@@ -1,8 +1,5 @@
 import React from 'react';
 import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
-import { Button, Card } from 'react-native-elements';
-import Shirt from '../image/t-shirt.png';
-
 
 export default function CategoryListItem(props) {
     const { category, onPress } = props;
@@ -10,7 +7,7 @@ export default function CategoryListItem(props) {
         <TouchableOpacity activeOpacity={0.5} onPress={onPress}>
             <View style={styles.container}>
                 <Text style={styles.title}>{category.name}</Text>
-                <Image style={styles.categoryImg} source={{ uri: category.img}} />
+                <Image style={styles.categoryImg} source={{ uri: category.img }} />
             </View>
         </TouchableOpacity>
     )
