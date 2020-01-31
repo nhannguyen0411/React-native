@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { View, ActivityIndicator, StyleSheet, FlatList } from 'react-native';
 import { CartContext } from '../contexts/Cart';
-import axios from 'axios';
 import ProductListItem from '../components/ProductListItem';
+import { HOST } from '../key';
 class Category extends Component {
 
     static navigationOptions = ({ navigation }) => {
@@ -19,11 +19,21 @@ class Category extends Component {
     }
 
     componentDidMount() {
+        this._handleCallApi();
+    }
+
+    _handleCallApi = () => {
         const { navigation } = this.props;
         const id = navigation.getParam('categoryProduct').id;
-        axios.get(`/products?category=${id}`)
-            .then(res => this.setState({ products: res.data }))
-            .catch(err => console.log(err))
+        fetch(`${HOST}/api/products?category=${id}`)
+            .then(res => res.json())
+            .then(json => {
+            if(json.success) {
+                this.setState({
+                    products: json.message
+                })
+            }
+        });
     }
 
     render() {

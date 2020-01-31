@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import { View, FlatList, ActivityIndicator, StyleSheet } from 'react-native';
 import LogoTitle from '../components/LogoTitle';
 import CategoryListItem from '../components/CategoryListItem';
-import axios from 'axios';
-
+import { HOST } from '../key';
 class Categories extends Component {
 
     static navigationOptions = {
@@ -18,11 +17,19 @@ class Categories extends Component {
     }
     
     componentDidMount() {
-        axios.get("/categories")
-            .then( res => 
-                this.setState({ categories: res.data })
-            )
-            .catch(err => console.log(err));
+        this._handleCallApi();
+    }
+
+    _handleCallApi = () => {
+        fetch(`${HOST}/api/categories`)
+            .then(res => res.json())
+            .then(json => {
+                if(json.success) {
+                    this.setState({
+                        categories: json.message
+                    })
+                }
+        });
     }
 
     render() {

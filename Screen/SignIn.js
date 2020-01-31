@@ -35,9 +35,9 @@ class ScreenLogin extends Component {
     render() {
         const { username, password } = this.state;
         return (
-            <ScrollView contentContainerStyle={styles.container}>
+            <View style={styles.container}>
                 <SignInItem />
-            </ScrollView>
+            </View>
         )
     }
 }

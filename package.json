@@ -12,7 +12,6 @@
   "dependencies": {
     "@react-native-community/masked-view": "^0.1.5",
     "@react-navigation/bottom-tabs": "^5.0.0-alpha.37",
-    "axios": "^0.19.1",
     "expo": "~36.0.0",
     "react": "~16.9.0",
     "react-dom": "~16.9.0",
