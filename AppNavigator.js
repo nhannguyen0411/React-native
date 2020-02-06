@@ -52,7 +52,7 @@ CartStack.navigationOptions = {
   )
 }
 
-const SettingStack = createStackNavigator({ Settings, SignIn });
+const SettingStack = createStackNavigator({ Settings, SignIn }, { backBehavior: 'none'});
 SettingStack.navigationOptions = {
   tabBarLabel: 'Settings',
   tabBarIcon: ({ focused }) => (

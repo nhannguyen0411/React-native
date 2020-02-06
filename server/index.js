@@ -5,13 +5,20 @@ mongoose.connect(process.env.DB, { useNewUrlParser: true, useUnifiedTopology: tr
 const app = express();
 const port = process.env.PORT
 const bodyParser = require('body-parser');
+// const tokenMiddle = require('./middleware/tokenMiddle');
 const indexRoutesProduct = require('./routes/api/products');
 const indexRoutesCategory = require('./routes/api/categories');
+const signInRoutes = require('./routes/api/auth');
+const signUpRoutes = require('./routes/api/auth');
+const verifyRoutes = require('./routes/api/auth');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use('/api', indexRoutesProduct);
 app.use('/api', indexRoutesCategory);
+app.use('/api', signInRoutes);
+app.use('/api', signUpRoutes);
+app.use('/api', verifyRoutes);
 app.listen(port, () => {
     console.log(`App running`);
 });

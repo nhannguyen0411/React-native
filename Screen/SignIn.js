@@ -15,28 +15,14 @@ class ScreenLogin extends Component {
         headerShown: false
     };
 
-    state = {
-        username: '',
-        password: '',
-    }
+    // onSwitchSuccessLogin = () => {
 
-    componentDidMount() {
-        
-    }
-
-    _handleOnLogin = () => {
-        
-    }
-
-    onInputLabelPressed = () => {
-        this.setState({ hidden: !this.state.hidden });
-    };
+    // }
 
     render() {
-        const { username, password } = this.state;
         return (
             <View style={styles.container}>
-                <SignInItem />
+                <SignInItem navigation={this.props.navigation}/>
             </View>
         )
     }

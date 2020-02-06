@@ -28,3 +28,7 @@ export const _handleSaveInStorage = async (key, obj) => {
         console.error(err);
     }
 }
+
+export const _handleRemoveStorage = async (key) => {
+    await AsyncStorage.removeItem(key)
+}

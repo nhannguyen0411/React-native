@@ -30,41 +30,41 @@ export class CartProvider extends Component {
   }
  
   removeFromCart(product){
-      if(product.quantity >= 2) {
-          this.setState({
-              cartItems: this.state.cartItems.map(item => {
-                  if (item.name.toLowerCase() === product.name.toLowerCase()) {
-                      item.quantity = item.quantity - 1;
-                  }
-                  return item;
-              }),
-              sum: this.state.sum -= parseFloat(product.price.split('.').join('')),
-              count: this.state.count - 1
-          });
-      } else {
-          const filt = this.state.cartItems.filter( item =>  item.id !== product.id )
-          this.setState({
-              cartItems: filt,
-              count: this.state.count - 1,
-              sum: this.state.sum -= parseFloat(product.price.split('.').join(''))
-          })
-      }
+    if(product.quantity >= 2) {
+        this.setState({
+            cartItems: this.state.cartItems.map(item => {
+                if (item.name.toLowerCase() === product.name.toLowerCase()) {
+                    item.quantity = item.quantity - 1;
+                }
+                return item;
+            }),
+            sum: this.state.sum -= parseFloat(product.price.split('.').join('')),
+            count: this.state.count - 1
+        });
+    } else {
+        const filt = this.state.cartItems.filter( item =>  item.id !== product.id )
+        this.setState({
+            cartItems: filt,
+            count: this.state.count - 1,
+            sum: this.state.sum -= parseFloat(product.price.split('.').join(''))
+        })
+    }
   }
 
   addToCart(product) {
-      let find = this.state.cartItems.find(
-          item => item.name.toLowerCase() === product.name.toLowerCase()
-      );
-      if(find === undefined) {
-          const productWithQuantity = { ...product, quantity: 1 };
-          this.setState({
-              cartItems: [...this.state.cartItems, productWithQuantity],
-              count: this.state.count + 1,
-              sum: this.state.sum += parseFloat(product.price.split('.').join(''))
-          });
-      } else {
-          this.countIncrease(product);
-      }
+    let find = this.state.cartItems.find(
+        item => item.name.toLowerCase() === product.name.toLowerCase()
+    );
+    if(find === undefined) {
+        const productWithQuantity = { ...product, quantity: 1 };
+        this.setState({
+            cartItems: [...this.state.cartItems, productWithQuantity],
+            count: this.state.count + 1,
+            sum: this.state.sum += parseFloat(product.price.split('.').join(''))
+        });
+    } else {
+        this.countIncrease(product);
+    }
   }
 
   render() {
