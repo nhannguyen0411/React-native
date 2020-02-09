@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { View, StyleSheet } from 'react-native';
-import SignInItem from '../components/SignInItem';
+import SignUpItem from '../components/SignUpItem';
 
-class ScreenSignIn extends Component {
+class ScreenSignUp extends Component {
 
     static navigationOptions = {
         headerShown: false
@@ -11,7 +11,7 @@ class ScreenSignIn extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <SignInItem navigation={this.props.navigation}/>
+                <SignUpItem navigation={this.props.navigation}/>
             </View>
         )
     }
@@ -23,4 +23,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default ScreenSignIn;
+export default ScreenSignUp;

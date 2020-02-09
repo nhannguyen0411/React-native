@@ -49,7 +49,6 @@ export default class Setting extends Component {
     _handleChangeState = async () => {
         const { list } = this.state;
         const { navigation } = this.props;
-        console.log(navigation);
         const tokenTamp = navigation.getParam('token');
         if(tokenTamp) {
             list.map(item => {

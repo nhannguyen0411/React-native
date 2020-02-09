@@ -9,43 +9,38 @@ module.exports.signup = (req, res, next) => {
     if(!name && !email && !password && !phone && !address && !ic) {
         return res.send({
             success: false,
-            errorName: true,
-            errorEmail: true,
-            errorPassword: true,
-            errorPhone: true,
-            message: 'Error: Fields cannot be blank'
+            errorName: 'Name cannot be blank',
+            errorEmail: 'Email cannot be blank',
+            errorPassword: 'Password cannot be blank',
+            errorPhone: 'Phone cannot be blank',
         })
     }
 
     if(!name) {
         return res.send({
             success: false,
-            errorName: true,
-            message: 'Error: Name cannot be blank'
+            errorName: 'Name cannot be blank'
         })
     }
 
     if(!email) {
         return res.send({
             success: false,
-            errorEmail: true,
-            message: 'Error: Email cannot be blank'
+            errorEmail: 'Email cannot be blank'
         })
     }
 
     if(!password) {
         return res.send({
             success: false,
-            errorPassword: true,
-            message: 'Error: Password cannot be blank'
+            errorPassword: 'Password cannot be blank'
         })
     }
 
     if(!phone) {
         return res.send({
             success: false,
-            errorPhone: true,
-            message: 'Error: Phone cannot be blank'
+            errorPhone: 'Phone cannot be blank'
         })
     }
 
@@ -64,7 +59,7 @@ module.exports.signup = (req, res, next) => {
             return res.send({
                 success: false,
                 errorEmail: true,
-                message: 'Error: Account already exist.'
+                errorEmail: 'Error: Account already exist.'
             })
         }
         else {
@@ -183,7 +178,7 @@ module.exports.verify = (req, res, next) => {
                 message: 'Error: Server error'
             })
         }
-        console.log(users);
+
         if(users.length !== 1) {
             return res.send({
                 success: false,
@@ -230,7 +225,6 @@ module.exports.requireToken = async (req, res, next) => {
             }
             
             req.userId = userId;
-            console.log(req.userId);
             next();
         })
     })

@@ -6,6 +6,7 @@ import { CartContext } from './contexts/Cart';
 import { Icon, Badge } from 'react-native-elements'
 import Home from './Screen/Home';
 import SignIn from './Screen/SignIn';
+import SignUp from './Screen/SignUp';
 import Category from './Screen/Category';
 import Categories from './Screen/Categories';
 import Cart from './Screen/Cart';
@@ -52,7 +53,7 @@ CartStack.navigationOptions = {
   )
 }
 
-const SettingStack = createStackNavigator({ Settings, SignIn }, { backBehavior: 'none'});
+const SettingStack = createStackNavigator({ Settings, SignIn, SignUp });
 SettingStack.navigationOptions = {
   tabBarLabel: 'Settings',
   tabBarIcon: ({ focused }) => (

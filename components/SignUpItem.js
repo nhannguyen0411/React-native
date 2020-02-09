@@ -3,20 +3,23 @@ import { View, Text, Image, TouchableOpacity, StyleSheet, KeyboardAvoidingView }
 import { Input, Icon } from 'react-native-elements';
 import Logo from '../image/Brand-white.png';
 import { HOST } from '../key';
-import { _handleSaveInStorage } from '../utils/Storage';
-class SignInItem extends Component {
+class SignUpItem extends Component {
 
     state = {
         email: '',
         password: '',
+        name: '',
+        phone: '',
         errorEmail: '',
         errorPassword: '',
-        errorMessage: ''
+        errorName: '',
+        errorPhone: '',
     }
 
-    _handleOnLogin = async () => {
-        const { email, password } = this.state;
-        fetch(`${HOST}/api/account/signin`, {
+    _handleOnSignUp = async () => {
+        const { email, password, name, phone } = this.state;
+        const { navigation } = this.props;
+        fetch(`${HOST}/api/account/signup`, {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -24,86 +27,61 @@ class SignInItem extends Component {
             },
             body: JSON.stringify({
                 email,
-                password
-            })
-        })
-        .then(res => res.json())
-        .then( async (json) => {
-            if(json.success) {
-                this.setState({
-                    errorEmail: '',
-                    errorPassword: ''
-                })
-                _handleSaveInStorage('token', json.token);
-                this.callApi(json.token);
-            }
-            else {
-                this.setState({
-                    errorEmail: json.errorEmail,
-                    errorPassword: json.errorPassword,
-                    errorMessage: json.message
-                })
-            }
-        })
-    }
-
-    callApi = async (token) => {
-        const bearer = `Bearer ${token}`;
-        const { navigation } = this.props;
-        await fetch(`${HOST}/api/verify`, {
-            method: 'GET',
-            headers: new Headers({
-                'Authorization': bearer,
-                'Content-Type': 'application/json'
+                password,
+                name,
+                phone
             })
         })
         .then(res => res.json())
         .then(json => {
             if(json.success) {
-                navigation.navigate('Settings', {name: json.name, token});
-            } else {
-                console.log("Lỗi ở call api sign item: ", json.message);
+                this.setState({
+                    errorEmail: '',
+                    errorPassword: '',
+                    errorName: '',
+                    errorPhone: ''
+                })
+                navigation.navigate('SignIn');
             }
-            
+            else {
+                this.setState({
+                    errorEmail: json.errorEmail,
+                    errorPassword: json.errorPassword,
+                    errorName: json.errorName,
+                    errorPhone: json.errorPhone
+                })
+            }
         })
     }
 
     render() {
-        const { onSignIn, email, password, errorEmail, errorMessage, errorPassword } = this.state;
+        const { email, name, phone, password, errorEmail, errorPassword, errorName, errorPhone } = this.state;
         const { navigation } = this.props;
         return (
             <KeyboardAvoidingView behavior="padding">
                 <View style={styles.container}>
                     <Image resizeMode='contain' source={Logo} style={styles.logo}/>
                     <Input
+                        label='Your name'
+                        placeholder='what is your name'
+                        value={name}
+                        onChangeText={(name) => this.setState({name})}
+                        leftIconContainerStyle={styles.icon}
+                        errorMessage={errorName}
+                    />
+                    <Input
                         label='Your Email Address'
                         placeholder='Email'
-                        leftIcon={
-                            <Icon
-                                name='ios-mail'
-                                type='ionicon'
-                                size={24}
-                                color='black'
-                            />
-                        }
                         value={email}
                         onChangeText={(email) => this.setState({email})}
                         leftIconContainerStyle={styles.icon}
-                        inputStyle={styles.input}
                         errorMessage={errorEmail}
+                        labelStyle={{marginTop: 20}}
                     />
                     <Input
                         label='Password'
                         errorMessage={errorPassword}
                         placeholder='Password'
-                        leftIcon={
-                            <Icon
-                                name='ios-lock'
-                                type='ionicon'
-                                size={24}
-                                color='black'
-                            />
-                        }
                         value={password}
                         onChangeText={(password) => this.setState({password})}
                         secureTextEntry={true}
@@ -111,14 +89,20 @@ class SignInItem extends Component {
                         inputStyle={{width: 200}}
                         labelStyle={{marginTop: 20}}
                     />
-                    <TouchableOpacity style={styles.btn} activeOpacity={0.5} onPress={this._handleOnLogin}>
-                        <Text style={styles.btn_text} >Sign In</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity activeOpacity={0.5} onPress={onSignIn}>
-                        <Text style={styles.text}>Forgot Password</Text>
+                    <Input
+                        label='Your phone number'
+                        placeholder='Phone'
+                        value={phone}
+                        onChangeText={(phone) => this.setState({phone})}
+                        leftIconContainerStyle={styles.icon}
+                        errorMessage={errorPhone}
+                        labelStyle={{marginTop: 20}}
+                    />
+                    <TouchableOpacity style={styles.btn} activeOpacity={0.5} onPress={this._handleOnSignUp}>
+                        <Text style={styles.btn_text} >Sign Up</Text>
                     </TouchableOpacity>
                     <TouchableOpacity activeOpacity={0.5} onPress={() => navigation.navigate('SignUp')}>
-                        <Text style={styles.text} >Sign Up</Text>
+                        <Text style={styles.text} >Already have account ?</Text>
                     </TouchableOpacity>
                 </View>
             </KeyboardAvoidingView>
@@ -165,4 +149,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default SignInItem;
+export default SignUpItem;
