@@ -21,18 +21,24 @@ export default class Setting extends Component {
             },
             {
                 id: 2,
+                title: 'Create product',
+                icon: 'ios-create',
+                hidden: true
+            },
+            {
+                id: 3,
                 title: 'Mail',
                 icon: 'ios-mail',
                 hidden: true
             },
             {
-                id: 3,
+                id: 4,
                 title: 'Notification',
                 icon: 'ios-notifications',
                 hidden: true
             },
             {
-                id: 4,
+                id: 5,
                 title: 'Log out',
                 icon: 'ios-exit',
                 hidden: false
@@ -90,9 +96,12 @@ export default class Setting extends Component {
             navigation.navigate('SignIn');
         }
         else if(index === 2) {
-            console.log(Mail);
+            navigation.navigate('Create');
         }
         else if(index === 3) {
+            console.log(Mail);
+        }
+        else if(inidex === 4) {
             console.log(Notification);
         }
         else {

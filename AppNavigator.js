@@ -7,6 +7,7 @@ import { Icon, Badge } from 'react-native-elements'
 import Home from './Screen/Home';
 import SignIn from './Screen/SignIn';
 import SignUp from './Screen/SignUp';
+import Create from './Screen/Create';
 import Category from './Screen/Category';
 import Categories from './Screen/Categories';
 import Cart from './Screen/Cart';
@@ -53,7 +54,7 @@ CartStack.navigationOptions = {
   )
 }
 
-const SettingStack = createStackNavigator({ Settings, SignIn, SignUp });
+const SettingStack = createStackNavigator({ Settings, SignIn, SignUp, Create });
 SettingStack.navigationOptions = {
   tabBarLabel: 'Settings',
   tabBarIcon: ({ focused }) => (
