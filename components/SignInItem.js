@@ -35,6 +35,7 @@ class SignInItem extends Component {
                     errorPassword: ''
                 })
                 _handleSaveInStorage('token', json.token);
+                console.log("about to run");
                 this.callApi(json.token);
             }
             else {
@@ -48,6 +49,7 @@ class SignInItem extends Component {
     }
 
     callApi = async (token) => {
+        console.log('running');
         const bearer = `Bearer ${token}`;
         const { navigation } = this.props;
         await fetch(`${HOST}/api/verify`, {

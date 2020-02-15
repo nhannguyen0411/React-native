@@ -83,7 +83,7 @@ class CreateItem extends Component {
         const { name, image1, price } = this.state;
         let formData = new FormData()
         formData.append('image', image1)
-        fetch(`${HOST}/upload`, {
+        fetch(`${HOST}/api/upload`, {
             method: 'post',
             headers: {
                 "Accept": "application/json",

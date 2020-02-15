@@ -88,6 +88,7 @@ module.exports.signup = (req, res, next) => {
 module.exports.signin = (req, res, next) => {
     const { body } = req;
     let { email, password } = body;
+    console.log(email, password)
 
     if(!email && !password) {
         return res.send({

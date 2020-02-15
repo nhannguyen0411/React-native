@@ -28,11 +28,11 @@ class Category extends Component {
         fetch(`${HOST}/api/products?category=${id}`)
             .then(res => res.json())
             .then(json => {
-            if(json.success) {
-                this.setState({
-                    products: json.message
-                })
-            }
+                if(json.success) {
+                    this.setState({
+                        products: json.message
+                    })
+                }
         });
     }
 

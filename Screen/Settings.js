@@ -101,7 +101,7 @@ export default class Setting extends Component {
         else if(index === 3) {
             console.log(Mail);
         }
-        else if(inidex === 4) {
+        else if(index === 4) {
             console.log(Notification);
         }
         else {
