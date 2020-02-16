@@ -58,7 +58,7 @@ export default class Setting extends Component {
         const tokenTamp = navigation.getParam('token');
         if(tokenTamp) {
             list.map(item => {
-                if(item.id === 1 || item.id === 4)
+                if(item.id === 1 || item.id === 5)
                     item.hidden = !item.hidden
                 else 
                     item.hidden = true;
@@ -91,18 +91,20 @@ export default class Setting extends Component {
     }
 
     switchScreen = async (index) => {
+        const { token } = this.state;
         const { navigation } = this.props;
         if(index === 1) {
             navigation.navigate('SignIn');
         }
         else if(index === 2) {
-            navigation.navigate('Create');
+            console.log(token, index);
+            navigation.navigate('Load', {token, index});
         }
         else if(index === 3) {
-            console.log(Mail);
+            console.log('Mail');
         }
         else if(index === 4) {
-            console.log(Notification);
+            console.log('Notification');
         }
         else {
             await _handleRemoveStorage('token').then( () => {

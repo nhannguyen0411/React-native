@@ -8,6 +8,7 @@ import Home from './Screen/Home';
 import SignIn from './Screen/SignIn';
 import SignUp from './Screen/SignUp';
 import Create from './Screen/Create';
+import Load from './Screen/Load';
 import Category from './Screen/Category';
 import Categories from './Screen/Categories';
 import Cart from './Screen/Cart';
@@ -54,7 +55,7 @@ CartStack.navigationOptions = {
   )
 }
 
-const SettingStack = createStackNavigator({ Settings, SignIn, SignUp, Create });
+const SettingStack = createStackNavigator({ Settings, SignIn, SignUp, Create, Load });
 SettingStack.navigationOptions = {
   tabBarLabel: 'Settings',
   tabBarIcon: ({ focused }) => (

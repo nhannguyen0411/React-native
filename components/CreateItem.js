@@ -10,9 +10,8 @@ import { _handleSaveInStorage } from '../utils/Storage';
 class CreateItem extends Component {
 
     state = {
-        image1: '',
-        image2: '',
-        language: 'Shirt',
+        image: '',
+        category: 'Shirt',
         name: '',
         price: '',
         errorName: '',
@@ -43,7 +42,7 @@ class CreateItem extends Component {
         console.log("Pick Image: ", result);
 
         if (!result.cancelled) {
-            this.setState({ image1: result.uri });
+            this.setState({ image: result.uri });
         }
     };
 
@@ -57,7 +56,7 @@ class CreateItem extends Component {
         console.log(result);
 
         if (!result.cancelled) {
-        this.setState({ image1: result.uri });
+        this.setState({ image: result.uri });
         }
     };
 
@@ -79,22 +78,27 @@ class CreateItem extends Component {
     }
 
     _handleOnSale = () => {
-        //const formData = new formData();
-        const { name, image1, price } = this.state;
-        let formData = new FormData()
-        formData.append('image', image1)
+        const { name, image, price, category } = this.state;
+        const { navigation } = this.props;
+        const token = navigation.getParam('token');
+        const bearer = `Bearer ${token}`;
+        let formData = new FormData();
+        formData.append('image', image);
+        formData.append('name', name);
+        formData.append('price', price);
+        formData.append('category', category)
         fetch(`${HOST}/api/upload`, {
             method: 'post',
-            headers: {
-                "Accept": "application/json",
-                "Content-Type": "multipart/form-data"
-            },
+            headers: new Headers({
+                'Authorization': bearer,
+                "Content-category": "multipart/form-data"
+            }),
             body: formData
         })
         .then(res => res.json())
         .then(json => {
             if(json.success) {
-                this.setState({image2: json.data})
+                console.log(json);
             } else {
                 console.log('Error')
             }
@@ -102,12 +106,13 @@ class CreateItem extends Component {
     };
 
     render() {
-        const { onSignIn, name, price, errorPrice, errorName, errorPassword, image1, image2, language } = this.state;
+        const { name, price, errorPrice, errorName, image, category } = this.state;
         const { navigation } = this.props;
         return (
             <KeyboardAvoidingView behavior="padding">
                 <View style={styles.container}>
                     <Image resizeMode='contain' source={Logo} style={styles.logo}/>
+                    <Text style={{textAlign: 'center', fontSize: 18, fontWeight: '700', marginBottom: 15}}>What would you like to sell?</Text>
                     <Input
                         label='Name product'
                         placeholder='Name product'
@@ -125,22 +130,24 @@ class CreateItem extends Component {
                     <View>
                         <Text>Category:</Text>
                         <Picker
-                            selectedValue={language}
-                            prompt={language}
+                            selectedValue={category}
+                            prompt={category}
                             style={{height: 50, width: 100}}
                             onValueChange={(itemValue, itemIndex) =>
-                                this.setState({language: itemValue})
+                                this.setState({category: itemValue})
                         }>
                             <Picker.Item label="Shirt" value="Shirt" />
                             <Picker.Item label="Skirt" value="Skirt" />
                         </Picker>
                     </View>
-                    <Button title='Choose' onPress={this._handleChoose}/>
-                    {image1 ?
-                    <Image resizeMode='contain' source={{ uri: image1 }} style={{ width: 200, height: 200 }} /> : null}
-                    {image2 ?
-                    <Image resizeMode='contain' source={{ uri: image2 }} style={{ width: 50, height: 50 }} /> : null}
-                    <Button title='Sell' onPress={this._handleOnSale}/>
+                    <TouchableOpacity style={styles.btn} activeOpacity={0.5} onPress={this._handleChoose}>
+                        <Text style={styles.btn_text} >Choose Image</Text>
+                    </TouchableOpacity>
+                    {image ?
+                    <Image resizeMode='contain' source={{ uri: image }} style={{ width: 200, height: 200, marginTop: 20 }} /> : null}
+                    {image ? <TouchableOpacity style={styles.btn} activeOpacity={0.5} onPress={this._handleOnSale}>
+                        <Text style={styles.btn_text} >Sell</Text>
+                    </TouchableOpacity> : null}
                 </View>
             </KeyboardAvoidingView>
         )
@@ -158,7 +165,19 @@ const styles = StyleSheet.create({
     },
     logo: {
         width: `100%`,
-        height: `20%`
+        height: `15%`
+    },
+    btn: {
+        width: `50%`,
+        backgroundColor: `#2089dc`,
+        borderRadius: 5,
+        marginTop: 20
+    },
+    btn_text: {
+        textAlign: 'center',
+        padding: 12,
+        fontSize: 16,
+        color: '#FFF'
     }
 });
 

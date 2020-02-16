@@ -1,5 +1,4 @@
 const Product = require("../../models/product.model");
-var fs = require('fs');
 module.exports.index = async (req, res, next) => {
     const { category } = req.query;
     await Product.find({
@@ -25,6 +24,7 @@ module.exports.index = async (req, res, next) => {
 };
 
 module.exports.create = async (req, res, next) => {
+    console.log(req.userId);
     let formidable = require('formidable');
     let form = new formidable.IncomingForm();
     form.uploadDir = global.__project_dirname + '../../uploads';
@@ -32,29 +32,44 @@ module.exports.create = async (req, res, next) => {
     form.maxFieldsSize = 10*1024*1024;
     form.multiples = true;
     form.parse(req, (err, fields, files) => {
+        const { image } = fields;
+        console.log(image);
         if(err) {
             res.send({
                 success: false,
                 message: 'Error: Cannot upload image'
             })
         }
-        let arrayOfFiles = files[""];
+        let arrayOfFiles = [image];
         if(arrayOfFiles.length > 0) {
-            let fileNames = [];
-            arrayOfFiles.forEach((eachFile) => {
-                fileNames.push(eachFile.path.split('\\')[1]);
-            });
             res.send({
                 success: true,
-                data: fileNames,
-                message: 'Upload images successfully'
-            });
+                message: 'Upload images successfully',
+                data: image
+            })
         }
         else {
             res.send({
                 success: false,
-                message: 'No images to upload!'
+                message: 'No images upload'
             })
         }
+        // if(arrayOfFiles.length > 0) {
+        //     let fileNames = [];
+        //     arrayOfFiles.forEach((eachFile) => {
+        //         fileNames.push(eachFile.path.split('\\')[1]);
+        //     });
+        //     res.send({
+        //         success: true,
+        //         data: fileNames,
+        //         message: 'Upload images successfully'
+        //     });
+        // }
+        // else {
+        //     res.send({
+        //         success: false,
+        //         message: 'No images to upload!'
+        //     })
+        // }
     })
 };
